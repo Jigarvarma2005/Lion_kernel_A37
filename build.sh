@@ -14,7 +14,7 @@ echo "ARM32 TC Present." || \
 echo "ARM32 TC Not Present. Downloading..." | \
 git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 $tcdir/los-4.9-32
 
-make O=out ARCH=arm64 lineageos_a37f_defconfig
+make O=out ARCH=arm64 Lion_kernel_a37f_defconfig
 
 PATH="$tcdir/los-4.9-64/bin:$tcdir/los-4.9-32/bin:${PATH}" \
 make    O=out \
