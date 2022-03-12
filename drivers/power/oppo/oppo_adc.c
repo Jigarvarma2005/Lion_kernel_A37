@@ -45,16 +45,15 @@ int opchg_get_prop_charger_voltage_now(struct opchg_charger *chip)
 				break;
 			}
 	   case OPCHG_BQ24196_ID:
-			if (is_project(OPPO_15399)){
-				rc = qpnp_vadc_read(chip->vadc_dev, USBIN, &results);
+			{
+				// board version_B
+			    rc = qpnp_vadc_read(chip->vadc_dev, USBIN, &results);
 			    if (rc) {
 			        pr_err("Unable to read vchg rc=%d\n", rc);
 			        return 0;
 			    }
 			    V_charger = (int)results.physical/1000;
-				V_charger = V_charger * 2 ;			
-				//Mofei@EXP.BaseDrv.charge,2016/03/23 add for Charger voltage sampling Compensation for 15399
-				V_charger += 120 ;		
+                            V_charger = V_charger * 2;
 				break;
 			}
 
@@ -181,14 +180,10 @@ int opchg_get_prop_battery_voltage_now(struct opchg_charger *chip)
 		}
 		V_battery =(int)results.physical;
 
-//battery voltage sampling Compensation
-		if(is_project(OPPO_15109)|| is_project(OPPO_15399))
+		//battery voltage sampling Compensation
+		if(is_project(OPPO_15109)||is_project(OPPO_15399))
 		{
-		    #ifdef VENDOR_EDIT 
-             /*chaoying.chen@EXP.BaseDrv.charge,2015/12/14 modify for battery voltage */
-		    if(chip->chg_present == false)
-				V_battery += 25*1000;
-			#endif /* VENDOR_EDIT */
+				V_battery += 20*1000;
 		}
 	}
 	else if(is_project(OPPO_14005) || is_project(OPPO_15011) || is_project(OPPO_15018)|| is_project(OPPO_15022))
