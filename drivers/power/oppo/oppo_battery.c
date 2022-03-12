@@ -1222,8 +1222,7 @@ void opchg_check_recharging_voltage(struct opchg_charger *chip)
 		//0~5
 		else if(chip->charging_opchg_temp_statu == OPCHG_CHG_TEMP_PRE_COOL1)
 		{
-	  //MoFei@EXP.BaseDrv.charge,2016-2-1 motify for recharging voltage in 0-5 degree
-			if(chip->bat_instant_vol < 4150 * 1000)
+			if(chip->bat_instant_vol < 4100 * 1000)
 				vol_low_count++;
 			else
 				vol_low_count = 0;
@@ -1423,8 +1422,7 @@ void opchg_aicl_point_set(struct opchg_charger *chip)
 
 	//chip->bat_instant_vol = opchg_get_prop_battery_voltage_now(chip) / 1000;
 	chip->bat_instant_vol = opchg_get_prop_battery_voltage_now(chip);
-	/*Mofei@EXP.BaseDrv.charge,2016/03/17 motify for charging current jump*/
-	if((chip->bat_instant_vol < 4200 * 1000) && (!chip->vindpm_level)){
+	if((chip->bat_instant_vol < 4140 * 1000) && (!chip->vindpm_level)){
 		if(chip->driver_id == OPCHG_BQ24196_ID)
 			chip->vindpm_vol = 4440;
 		else if(chip->driver_id == OPCHG_BQ24188_ID)

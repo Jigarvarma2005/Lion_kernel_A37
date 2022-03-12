@@ -29,11 +29,10 @@ make    O=out \
 cp out/arch/arm64/boot/Image anykernel3
 
 cc anykernel3/dtbtool.c -o out/arch/arm64/boot/dts/dtbtool
-( cd out/arch/arm64/boot/dts; ./dtbtool -v -s 2048 -o dt.img )
-( cp out/arch/arm64/boot/dts/dt.img anykernel3 )
+( cd out/arch/arm64/boot/dts; dtbtool -v -s 2048 -o dt.img )
 
 ( cd anykernel3; zip -r ../out/Lion_KERNEL_by_Technical-Jigar`date +%d\.%m\.%Y_%H\:%M\:%S`.zip . -x 'LICENSE' 'README.md' 'dtbtool.c' )
 
 BUILD_END=$(date +"%s")
 DIFF=$(($BUILD_END - $BUILD_START))
-echo -e "\e[1;42mBuild completed in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds.\e[0m"
+echo -e "Build completed in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
